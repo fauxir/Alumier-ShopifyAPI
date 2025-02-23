@@ -42,6 +42,8 @@ export interface ShopifyDiscount {
 
 export interface DiscountResponse {
   productId: string;
+  productTitle: string;
+  productHandle: string;
   originalPrice: number;
   discountedPrice: string;
   discountPercentage: string;

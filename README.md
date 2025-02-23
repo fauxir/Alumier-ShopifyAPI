@@ -63,7 +63,7 @@ docker-compose logs -f
 
 ### GET /discounts
 
-Returns the discounted price information for a product.
+Returns the discounted price information for products under a specific discount.
 
 Usage:
 - `/discounts` - Uses default discount ID
@@ -71,12 +71,24 @@ Usage:
 
 Example Response:
 ```json
-{
-  "productId": "50337148436810",
-  "originalPrice": 2629.95,
-  "discountedPrice": "2366.96",
-  "discountPercentage": "10%"
-}
+[
+  {
+    "productId": "50333266116938",
+    "productTitle": "The Complete Snowboard",
+    "productHandle": "the-complete-snowboard",
+    "originalPrice": 699.95,
+    "discountedPrice": "629.96",
+    "discountPercentage": "10%"
+  },
+  {
+    "productId": "50337148436810",
+    "productTitle": "The 3p Fulfilled Snowboard",
+    "productHandle": "the-3p-fulfilled-snowboard",
+    "originalPrice": 2629.95,
+    "discountedPrice": "2366.96",
+    "discountPercentage": "10%"
+  }
+]
 ```
 
 Error Response:
