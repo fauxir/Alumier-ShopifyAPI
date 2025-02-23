@@ -16,6 +16,16 @@ This API server fetches product discount information from Shopify's Admin API wi
 - Comprehensive error handling
 - Docker support for deployment
 - TypeScript for type safety
+- Automated deployment via GitHub Actions
+
+## Live API
+
+A deployed version of the API is available at:
+```
+https://alumiermd-discounts.michaeladrian.co.uk/discounts
+```
+
+You can test the API endpoints directly using this URL, following the usage instructions below.
 
 ## Quick Start
 
