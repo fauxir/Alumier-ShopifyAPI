@@ -7,11 +7,17 @@ export class WebhookService {
     const calculatedHmac = crypto
       .createHmac('sha256', this.HMAC_KEY)
       .update(rawBody, 'utf-8')
-      .digest('hex');
+      .digest('base64');
 
-    return crypto.timingSafeEqual(
-      Buffer.from(hmac),
-      Buffer.from(calculatedHmac)
-    );
+    try {
+      const providedHmacBase64 = Buffer.from(hmac, 'hex').toString('base64');
+      return crypto.timingSafeEqual(
+        Buffer.from(calculatedHmac),
+        Buffer.from(providedHmacBase64)
+      );
+    } catch (error) {
+      console.error('Error comparing HMACs:', error);
+      return false;
+    }
   }
 }

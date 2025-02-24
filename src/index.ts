@@ -9,6 +9,7 @@ import { requestLogger } from './middleware/logger.middleware.js';
 import { errorHandler } from './middleware/error.middleware.js';
 
 const app = express();
+app.set('trust proxy', 1);
 const port = process.env.PORT ? parseInt(process.env.PORT) : 3000;
 
 const corsOptions = {

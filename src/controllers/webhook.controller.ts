@@ -15,7 +15,14 @@ export class WebhookController {
         });
       }
 
-      const rawBody = JSON.stringify(req.body);
+      const rawBody = (req as any).rawBody?.toString('utf-8') || '';
+      if (!rawBody) {
+        return res.status(400).json({
+          status: 'error',
+          message: 'Missing request body'
+        });
+      }
+
       const isValid = WebhookService.verifyHmac(hmac, rawBody);
 
       if (!isValid) {
