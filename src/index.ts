@@ -3,6 +3,8 @@ import express from 'express';
 import cors from 'cors';
 import rateLimit from 'express-rate-limit';
 import { DiscountController } from './controllers/discount.controller.js';
+import { OrderController } from './controllers/orders.controller.js';
+import { WebhookController } from './controllers/webhook.controller.js';
 import { requestLogger } from './middleware/logger.middleware.js';
 import { errorHandler } from './middleware/error.middleware.js';
 
@@ -11,7 +13,7 @@ const port = process.env.PORT ? parseInt(process.env.PORT) : 3000;
 
 const corsOptions = {
   origin: process.env.ALLOWED_ORIGINS?.split(',') || '*',
-  methods: ['GET'],
+  methods: ['GET', 'POST'],
   optionsSuccessStatus: 200
 };
 
@@ -23,9 +25,15 @@ const limiter = rateLimit({
   legacyHeaders: false
 });
 
+const rawBodyBuffer = (req: express.Request, _res: express.Response, buf: Buffer) => {
+  (req as any).rawBody = buf;
+};
+
 app.use(cors(corsOptions));
 app.use(limiter);
-app.use(express.json());
+app.use(express.json({
+  verify: rawBodyBuffer
+}));
 app.use(requestLogger);
 
 app.get('/health', (_req, res) => {
@@ -33,6 +41,8 @@ app.get('/health', (_req, res) => {
 });
 
 app.get('/discounts', DiscountController.getDiscount);
+app.get('/past-orders', OrderController.getPastOrders);
+app.post('/webhook', WebhookController.handleWebhook);
 
 app.use(errorHandler);
 

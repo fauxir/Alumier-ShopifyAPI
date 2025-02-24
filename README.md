@@ -118,6 +118,73 @@ Common error cases handled:
 - Rate limit exceeded
 - Invalid routes
 
+### GET /past-orders
+
+Retrieves past orders for a specific product within a given time frame.
+
+Usage:
+- `/past-orders?productId=YOUR_PRODUCT_ID&daysBack=30` - Fetches orders for the specified product from the last 30 days
+
+Parameters:
+- `productId` (required) - The Shopify product ID to filter orders
+- `daysBack` (required) - Number of days to look back for orders
+
+Example Response:
+```json
+{
+  "status": "success",
+  "data": [
+    {
+      "orderId": "gid://shopify/Order/9917138796874",
+      "orderNumber": "#1002",
+      "createdAt": "2025-02-24T06:00:26Z",
+      "customer": {
+        "firstName": "Michael",
+        "lastName": "Adrian",
+        "fullName": "Michael Adrian"
+      },
+      "products": [
+        {
+          "quantity": 1,
+          "productId": "gid://shopify/Product/10042865353034",
+          "productTitle": "The Collection Snowboard: Liquid"
+        }
+      ]
+    }
+  ]
+}
+```
+
+### POST /webhook
+
+Handles incoming Shopify webhooks with HMAC verification.
+
+Headers required:
+- `X-Shopify-Hmac-Sha256` - HMAC signature for verification
+- `X-Shopify-Topic` - Webhook topic (e.g., 'orders/create')
+- `X-Shopify-Shop-Domain` - Shop domain
+
+The endpoint:
+- Verifies the webhook signature using HMAC-SHA256
+- Logs the webhook data to the console if verification succeeds
+- Returns appropriate status codes based on verification result
+
+Example Response (Success):
+```json
+{
+  "status": "success",
+  "message": "Webhook processed successfully"
+}
+```
+
+Example Response (Invalid HMAC):
+```json
+{
+  "status": "error",
+  "message": "Invalid HMAC signature"
+}
+```
+
 ## Security Features
 
 - CORS protection with configurable origins
