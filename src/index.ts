@@ -17,7 +17,7 @@ app.set('trust proxy', 1);
 const port = process.env.PORT ? parseInt(process.env.PORT) : 3000;
 
 const corsOptions = {
-  origin: process.env.ALLOWED_ORIGINS?.split(',') || '*',
+  origin: process.env.ALLOWED_ORIGINS?.split(',').filter(Boolean).length ? process.env.ALLOWED_ORIGINS.split(',') : '*',
   methods: ['GET', 'POST'],
   optionsSuccessStatus: 200
 };
