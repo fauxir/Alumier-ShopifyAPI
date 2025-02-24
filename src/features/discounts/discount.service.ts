@@ -1,7 +1,60 @@
-import { ShopifyDiscount, DiscountResponse } from '../types/shopify.types.js';
-import { AppError } from '../middleware/error.middleware.js';
+import { ShopifyService } from '../../shared/services/shopify.service.js';
+import { ShopifyDiscount, DiscountResponse } from '../../shared/types/common.types.js';
+import { AppError } from '../../shared/middleware/error.middleware.js';
 
 export class DiscountService {
+  private static shopifyService = new ShopifyService(
+    process.env.SHOPIFY_DOMAIN || '',
+    process.env.SHOPIFY_ADMIN_API_TOKEN || ''
+  );
+
+  static async getDiscountedProducts(discountId?: string): Promise<DiscountResponse[]> {
+    try {
+      const query = `
+      {
+        automaticDiscountNode(id: "${discountId}") {
+          id
+          automaticDiscount {
+            ... on DiscountAutomaticBasic {
+              customerGets {
+                items {
+                  ... on DiscountProducts {
+                    __typename
+                    productVariants(first: 10) {
+                      edges {
+                        node {
+                          id
+                          product {
+                            title
+                            handle
+                          }
+                          price
+                        }
+                      }
+                    }
+                  }
+                }
+                value {
+                  ... on DiscountPercentage {
+                    __typename
+                    percentage
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    `;
+
+      const response = await this.shopifyService.makeGraphQLRequest<ShopifyDiscount>(query);
+      return this.calculateDiscount(response);
+    } catch (error) {
+      console.error('Error fetching discounted products:', error);
+      throw error;
+    }
+  }
+
   public static calculateDiscount(data: ShopifyDiscount): DiscountResponse[] {
     try {
       if (!data?.data?.automaticDiscountNode?.automaticDiscount?.customerGets) {

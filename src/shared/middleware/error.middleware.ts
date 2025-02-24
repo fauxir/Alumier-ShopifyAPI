@@ -1,12 +1,10 @@
 import { Request, Response, NextFunction } from 'express';
 
 export class AppError extends Error {
-  constructor(
-    public statusCode: number,
-    message: string
-  ) {
+  constructor(public statusCode: number, message: string) {
     super(message);
     this.name = 'AppError';
+    Error.captureStackTrace(this, this.constructor);
   }
 }
 
@@ -15,25 +13,17 @@ export const errorHandler = (
   req: Request,
   res: Response,
   next: NextFunction
-) => {
-  console.error('Error:', err);
-
+): void => {
   if (err instanceof AppError) {
-    return res.status(err.statusCode).json({
+    res.status(err.statusCode).json({
       status: 'error',
       message: err.message
     });
+    return;
   }
 
-  if (err.message.includes('GraphQL')) {
-    return res.status(400).json({
-      status: 'error',
-      message: 'Invalid Shopify API request',
-      details: err.message
-    });
-  }
-
-  return res.status(500).json({
+  console.error('Unhandled error:', err);
+  res.status(500).json({
     status: 'error',
     message: 'Internal server error'
   });

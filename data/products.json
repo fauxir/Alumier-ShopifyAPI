@@ -1,0 +1,314 @@
+[
+  {
+    "id": "gid://shopify/Product/10042864894282",
+    "title": "The Inventory Not Tracked Snowboard",
+    "variants": [
+      {
+        "id": "gid://shopify/ProductVariant/50333265756490",
+        "title": "Default Title",
+        "price": 949.95,
+        "sku": "sku-untracked-1"
+      }
+    ]
+  },
+  {
+    "id": "gid://shopify/Product/10042864927050",
+    "title": "Gift Card",
+    "variants": [
+      {
+        "id": "gid://shopify/ProductVariant/50333265789258",
+        "title": "$10",
+        "price": 10,
+        "sku": null
+      },
+      {
+        "id": "gid://shopify/ProductVariant/50333265822026",
+        "title": "$25",
+        "price": 25,
+        "sku": null
+      },
+      {
+        "id": "gid://shopify/ProductVariant/50333265854794",
+        "title": "$50",
+        "price": 50,
+        "sku": null
+      },
+      {
+        "id": "gid://shopify/ProductVariant/50333265887562",
+        "title": "$100",
+        "price": 100,
+        "sku": null
+      }
+    ]
+  },
+  {
+    "id": "gid://shopify/Product/10042864959818",
+    "title": "The Out of Stock Snowboard",
+    "variants": [
+      {
+        "id": "gid://shopify/ProductVariant/50333266018634",
+        "title": "Default Title",
+        "price": 885.95,
+        "sku": null
+      }
+    ]
+  },
+  {
+    "id": "gid://shopify/Product/10042864992586",
+    "title": "The Collection Snowboard: Hydrogen",
+    "variants": [
+      {
+        "id": "gid://shopify/ProductVariant/50333265953098",
+        "title": "Default Title",
+        "price": 600,
+        "sku": null
+      }
+    ]
+  },
+  {
+    "id": "gid://shopify/Product/10042865025354",
+    "title": "The Draft Snowboard",
+    "variants": [
+      {
+        "id": "gid://shopify/ProductVariant/50333265985866",
+        "title": "Default Title",
+        "price": 2629.95,
+        "sku": null
+      }
+    ]
+  },
+  {
+    "id": "gid://shopify/Product/10042865058122",
+    "title": "The Hidden Snowboard",
+    "variants": [
+      {
+        "id": "gid://shopify/ProductVariant/50333266215242",
+        "title": "Default Title",
+        "price": 749.95,
+        "sku": null
+      }
+    ]
+  },
+  {
+    "id": "gid://shopify/Product/10042865090890",
+    "title": "Selling Plans Ski Wax",
+    "variants": [
+      {
+        "id": "gid://shopify/ProductVariant/50333266313546",
+        "title": "Selling Plans Ski Wax",
+        "price": 24.95,
+        "sku": null
+      },
+      {
+        "id": "gid://shopify/ProductVariant/50333266379082",
+        "title": "Special Selling Plans Ski Wax",
+        "price": 49.95,
+        "sku": null
+      },
+      {
+        "id": "gid://shopify/ProductVariant/50333266411850",
+        "title": "Sample Selling Plans Ski Wax",
+        "price": 9.95,
+        "sku": null
+      }
+    ]
+  },
+  {
+    "id": "gid://shopify/Product/10042865123658",
+    "title": "The Compare at Price Snowboard",
+    "variants": [
+      {
+        "id": "gid://shopify/ProductVariant/50333266248010",
+        "title": "Default Title",
+        "price": 785.95,
+        "sku": null
+      }
+    ]
+  },
+  {
+    "id": "gid://shopify/Product/10042865156426",
+    "title": "The Complete Snowboard",
+    "variants": [
+      {
+        "id": "gid://shopify/ProductVariant/50333266051402",
+        "title": "Ice",
+        "price": 699.95,
+        "sku": null
+      },
+      {
+        "id": "gid://shopify/ProductVariant/50333266084170",
+        "title": "Dawn",
+        "price": 699.95,
+        "sku": null
+      },
+      {
+        "id": "gid://shopify/ProductVariant/50333266116938",
+        "title": "Powder",
+        "price": 699.95,
+        "sku": null
+      },
+      {
+        "id": "gid://shopify/ProductVariant/50333266149706",
+        "title": "Electric",
+        "price": 699.95,
+        "sku": null
+      },
+      {
+        "id": "gid://shopify/ProductVariant/50333266182474",
+        "title": "Sunset",
+        "price": 699.95,
+        "sku": null
+      }
+    ]
+  },
+  {
+    "id": "gid://shopify/Product/10042865189194",
+    "title": "The Minimal Snowboard",
+    "variants": [
+      {
+        "id": "gid://shopify/ProductVariant/50333265920330",
+        "title": "Default Title",
+        "price": 885.95,
+        "sku": null
+      }
+    ]
+  },
+  {
+    "id": "gid://shopify/Product/10042865221962",
+    "title": "The Videographer Snowboard",
+    "variants": [
+      {
+        "id": "gid://shopify/ProductVariant/50333266280778",
+        "title": "Default Title",
+        "price": 885.95,
+        "sku": null
+      }
+    ]
+  },
+  {
+    "id": "gid://shopify/Product/10042865254730",
+    "title": "The Archived Snowboard",
+    "variants": [
+      {
+        "id": "gid://shopify/ProductVariant/50333266346314",
+        "title": "Default Title",
+        "price": 629.95,
+        "sku": null
+      }
+    ]
+  },
+  {
+    "id": "gid://shopify/Product/10042865287498",
+    "title": "The Collection Snowboard: Oxygen",
+    "variants": [
+      {
+        "id": "gid://shopify/ProductVariant/50333266444618",
+        "title": "Default Title",
+        "price": 1025,
+        "sku": null
+      }
+    ]
+  },
+  {
+    "id": "gid://shopify/Product/10042865320266",
+    "title": "The Multi-location Snowboard",
+    "variants": [
+      {
+        "id": "gid://shopify/ProductVariant/50333266575690",
+        "title": "Default Title",
+        "price": 729.95,
+        "sku": null
+      }
+    ]
+  },
+  {
+    "id": "gid://shopify/Product/10042865353034",
+    "title": "The Collection Snowboard: Liquid",
+    "variants": [
+      {
+        "id": "gid://shopify/ProductVariant/50333266608458",
+        "title": "Default Title",
+        "price": 749.95,
+        "sku": null
+      }
+    ]
+  },
+  {
+    "id": "gid://shopify/Product/10042865385802",
+    "title": "The 3p Fulfilled Snowboard",
+    "variants": [
+      {
+        "id": "gid://shopify/ProductVariant/50337148404042",
+        "title": "Freestyle/Park",
+        "price": 2629.95,
+        "sku": "sku-hosted-1"
+      },
+      {
+        "id": "gid://shopify/ProductVariant/50337148436810",
+        "title": "All-Mountain-Freestyle",
+        "price": 2629.95,
+        "sku": "sku-hosted-2"
+      },
+      {
+        "id": "gid://shopify/ProductVariant/50337148469578",
+        "title": "All-Mountain",
+        "price": 2629.95,
+        "sku": "sku-hosted-3"
+      }
+    ]
+  },
+  {
+    "id": "gid://shopify/Product/10042865418570",
+    "title": "The Multi-managed Snowboard",
+    "variants": [
+      {
+        "id": "gid://shopify/ProductVariant/50335183012170",
+        "title": "Freestyle/Park",
+        "price": 610,
+        "sku": "sku-managed-1"
+      },
+      {
+        "id": "gid://shopify/ProductVariant/50335187763530",
+        "title": "All-Mountain-Freestyle",
+        "price": 650,
+        "sku": ""
+      },
+      {
+        "id": "gid://shopify/ProductVariant/50335187796298",
+        "title": "All-Mountain",
+        "price": 660,
+        "sku": ""
+      },
+      {
+        "id": "gid://shopify/ProductVariant/50335187829066",
+        "title": "Aggressive-All-Mountain",
+        "price": 640,
+        "sku": ""
+      }
+    ]
+  },
+  {
+    "id": "gid://shopify/Product/10045221372234",
+    "title": "Orange Snowboard",
+    "variants": [
+      {
+        "id": "gid://shopify/ProductVariant/50340414259530",
+        "title": "Default Title",
+        "price": 100,
+        "sku": ""
+      }
+    ]
+  },
+  {
+    "id": "gid://shopify/Product/10045235331402",
+    "title": "Orange Snowboard",
+    "variants": [
+      {
+        "id": "gid://shopify/ProductVariant/50340668178762",
+        "title": "Default Title",
+        "price": 100,
+        "sku": ""
+      }
+    ]
+  }
+]

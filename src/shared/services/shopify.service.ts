@@ -1,5 +1,5 @@
 import fetch from 'node-fetch';
-import { ShopifyDiscount } from '../types/shopify.types.js';
+import { ShopifyDiscount } from '../types/common.types.js';
 
 interface ShopifyErrorResponse {
   errors?: string[];

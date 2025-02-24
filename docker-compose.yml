@@ -2,20 +2,30 @@ version: '3.8'
 
 services:
   api:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: shopify-discount-api
     ports:
-      - "3000:3000"
+      - "${PORT:-3000}:3000"
     environment:
       - NODE_ENV=production
-      - PORT=3000
+      - PORT=${PORT:-3000}
       - SHOPIFY_DOMAIN=${SHOPIFY_DOMAIN}
-      - SHOPIFY_ADMIN_API_TOKEN=${SHOPIFY_ADMIN_API_TOKEN}
       - SHOPIFY_API_KEY=${SHOPIFY_API_KEY}
       - SHOPIFY_SECRET_KEY=${SHOPIFY_SECRET_KEY}
+      - SHOPIFY_ADMIN_API_TOKEN=${SHOPIFY_ADMIN_API_TOKEN}
+      - SHOPIFY_WEBHOOK_SECRET=${SHOPIFY_WEBHOOK_SECRET}
+      - ALLOWED_ORIGINS=${ALLOWED_ORIGINS}
+      - SENDGRID_API_KEY=${SENDGRID_API_KEY}
+      - NOTIFICATION_EMAIL=${NOTIFICATION_EMAIL}
+      - NOTIFICATION_EMAIL_FROM=${NOTIFICATION_EMAIL_FROM}
+    volumes:
+      - ./data:/app/data
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/discounts"]
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
       interval: 30s
       timeout: 10s
       retries: 3
+      start_period: 40s

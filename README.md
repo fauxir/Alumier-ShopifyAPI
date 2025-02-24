@@ -1,217 +1,217 @@
-# AlumierMD Shopify Discount API
+# AlumierMD Shopify API
 
-A TypeScript-based Express.js API that extends Shopify's functionality by providing discounted prices for products outside the cart. This solves the limitation of Shopify's liquid templating where discounts are only visible in the cart.
-
-## Purpose
-
-This API server fetches product discount information from Shopify's Admin API with GraphQL and calculates the discounted prices, allowing you to display accurate discount information directly on product pages.
+A TypeScript-based Express.js API that extends Shopify's functionality by providing the discounted prices for products outside the cart, monitoring for price changes across product variants and order history.
 
 ## Features
 
-- Fetches real-time discount data from Shopify Admin API
-- Calculates precise discounted prices
-- RESTful endpoint for easy integration
-- CORS protection with configurable origins
-- Rate limiting (100 requests/minute)
-- Comprehensive error handling
-- Docker support for deployment
-- TypeScript for type safety
-- Automated deployment via GitHub Actions
+- Real-time discount calculations
+- Price monitoring with email alerts
+- Product variant tracking
+- Order history analysis
+- HMAC webhook verification
+- RESTful endpoints
+- OpenAPI/Swagger documentation
+- Rate limiting protection
+- CORS security
+- Docker support
 
-## Live API
+## Prerequisites
 
-A deployed version of the API is available at:
-```
-https://alumiermd-discounts.michaeladrian.co.uk/discounts
-```
+- Node.js >= 20
+- npm or yarn
+- Docker (optional)
 
-You can test the API endpoints directly using this URL, following the usage instructions below.
+## Installation
 
-## Quick Start
-
-### Local Development
-
-1. Clone the repository and install dependencies:
+1. Clone the repository:
 ```bash
-git clone <repository-url>
-cd <repository-name>
+git clone https://github.com/fauxir/Alumier-ShopifyAPI.git
+cd Alumier-ShopifyAPI
+```
+
+2. Install dependencies:
+```bash
 npm install
 ```
 
-2. Configure environment variables:
-```bash
-cp .env.example .env
-```
-Update `.env` with your credentials:
-```
+3. Create a `.env` file:
+```env
 PORT=3000
 SHOPIFY_DOMAIN=your-store.myshopify.com
 SHOPIFY_API_KEY=your_api_key
 SHOPIFY_SECRET_KEY=your_secret_key
 SHOPIFY_ADMIN_API_TOKEN=your_admin_token
+SHOPIFY_WEBHOOK_SECRET=your_webhook_secret
 ALLOWED_ORIGINS=http://localhost:3000,https://your-store.myshopify.com
+SENDGRID_API_KEY=your_sendgrid_api_key
+NOTIFICATION_EMAIL=your@email.com
+NOTIFICATION_EMAIL_FROM=notifications@yourdomain.com
 ```
 
-3. Start the development server:
-```bash
-npm run dev
-```
+## API Documentation
 
-### Docker Deployment
+The API documentation is available at `/api-docs` when running the server. It provides detailed information about all endpoints, request/response formats, and examples.
 
-1. Build and start the container:
-```bash
-docker-compose up -d
-```
+### Endpoints
 
-2. Check logs:
-```bash
-docker-compose logs -f
-```
+#### GET /discounts
+Returns discounted price information for products.
 
-## API Usage
+**Query Parameters:**
+- `discountId` (optional): Specific discount ID to query
 
-### GET /discounts
-
-Returns the discounted price information for products under a specific discount.
-
-Usage:
-- `/discounts` - Uses default discount ID
-- `/discounts?discountId=gid://shopify/DiscountAutomaticNode/YOUR_ID` - Uses specified discount ID
-
-Example Response:
+**Response Example:**
 ```json
 [
   {
     "productId": "50333266116938",
-    "productTitle": "The Complete Snowboard",
-    "productHandle": "the-complete-snowboard",
-    "originalPrice": 699.95,
-    "discountedPrice": "629.96",
-    "discountPercentage": "10%"
-  },
-  {
-    "productId": "50337148436810",
-    "productTitle": "The 3p Fulfilled Snowboard",
-    "productHandle": "the-3p-fulfilled-snowboard",
-    "originalPrice": 2629.95,
-    "discountedPrice": "2366.96",
+    "productTitle": "AlumierMD Moisture Matte Sunscreen",
+    "productHandle": "moisture-matte-sunscreen",
+    "originalPrice": 49.99,
+    "discountedPrice": "44.99",
     "discountPercentage": "10%"
   }
 ]
 ```
 
-Error Response:
+#### GET /past-orders
+Retrieves order history for a specific product.
+
+**Query Parameters:**
+- `productId` (required): The Shopify product ID
+- `days` (optional): Number of days to look back (default: 30, max: 365)
+
+**Success Response Example:**
 ```json
-{
-  "status": "error",
-  "message": "Error description",
-  "details": "Additional error details (for API errors)"
-}
-```
-
-Common error cases handled:
-- Invalid discount data structure
-- Missing product variants
-- Invalid prices
-- Invalid discount percentages
-- Rate limit exceeded
-- Invalid routes
-
-### GET /past-orders
-
-Retrieves past orders for a specific product within a given time frame.
-
-Usage:
-- `/past-orders?productId=YOUR_PRODUCT_ID&daysBack=30` - Fetches orders for the specified product from the last 30 days
-
-Parameters:
-- `productId` (required) - The Shopify product ID to filter orders
-- `daysBack` (required) - Number of days to look back for orders
-
-Example Response:
-```json
-{
-  "status": "success",
-  "data": [
-    {
-      "orderId": "gid://shopify/Order/9917138796874",
-      "orderNumber": "#1002",
-      "createdAt": "2025-02-24T06:00:26Z",
-      "customer": {
-        "firstName": "Michael",
-        "lastName": "Adrian",
-        "fullName": "Michael Adrian"
-      },
-      "products": [
-        {
-          "quantity": 1,
-          "productId": "gid://shopify/Product/10042865353034",
-          "productTitle": "The Collection Snowboard: Liquid"
-        }
-      ]
+[
+  {
+    "orderId": "4495264825562",
+    "orderNumber": "#1002",
+    "createdAt": "2025-02-24T22:42:52Z",
+    "customer": {
+      "firstName": "John",
+      "lastName": "Doe",
+      "fullName": "John Doe"
+    },
+    "product": {
+      "id": "10042865353034",
+      "title": "AlumierMD Moisture Matte Sunscreen",
+      "quantity": 2
     }
-  ]
-}
+  }
+]
 ```
 
-### POST /webhook
+**Error Responses:**
 
-Handles incoming Shopify webhooks with HMAC verification.
-
-Headers required:
-- `X-Shopify-Hmac-Sha256` - HMAC signature for verification
-- `X-Shopify-Topic` - Webhook topic (e.g., 'orders/create')
-- `X-Shopify-Shop-Domain` - Shop domain
-
-The endpoint:
-- Verifies the webhook signature using HMAC-SHA256
-- Logs the webhook data to the console if verification succeeds
-- Returns appropriate status codes based on verification result
-
-Example Response (Success):
-```json
-{
-  "status": "success",
-  "message": "Webhook processed successfully"
-}
-```
-
-Example Response (Invalid HMAC):
+1. Product Not Found (404):
 ```json
 {
   "status": "error",
-  "message": "Invalid HMAC signature"
+  "message": "Product not found"
 }
 ```
 
-## Security Features
+2. No Orders Found (404):
+```json
+{
+  "status": "error",
+  "message": "No orders found for this product in the specified time period"
+}
+```
 
-- CORS protection with configurable origins
-- Rate limiting: 100 requests per minute per IP
-- Environment-based configuration
-- Error boundaries and type safety
+3. Invalid Parameters (400):
+```json
+{
+  "status": "error",
+  "message": "Days must be between 1 and 365"
+}
+```
 
-## Architecture
+#### POST /webhook
+Handles Shopify webhooks for product updates and price monitoring.
 
-- Express.js REST API with TypeScript
-- Shopify GraphQL Admin API integration
-- Service-based architecture for maintainability
-- Docker containerization for deployment
-- Environment-based configuration
+**Headers Required:**
+- `X-Shopify-Hmac-Sha256`: HMAC signature for verification
+- `X-Shopify-Topic`: Webhook topic (e.g., 'products/update')
+- `X-Shopify-Shop-Domain`: Shop domain
+
+**Features:**
+- HMAC verification for security
+- Price change monitoring
+- Email notifications for significant price drops (>20%)
+- Product variant tracking
+
+## Price Monitoring
+
+The API includes automated price monitoring:
+
+- Tracks all product variants independently
+- Sends email alerts for price drops over 20%
+- Stores historical price data
+- Includes variant-specific information in notifications
+
+### Email Notifications
+
+Price change notifications include:
+- Product title and variant name
+- SKU information
+- Old and new prices
+- Percentage decrease
+- Timestamp
+
+## Docker Deployment
+
+1. Build the image:
+```bash
+docker-compose build
+```
+
+2. Start the container:
+```bash
+docker-compose up -d
+```
+
+The API will be available at `http://localhost:3000`.
 
 ## Development
 
-- `npm run dev`: Start development server with hot-reload
-- `npm run build`: Build TypeScript code
-- `npm start`: Start production server
+Start the development server:
+```bash
+npm run dev
+```
 
-## Health Check
+## Project Structure
 
-The API includes a health check endpoint at `/health` for monitoring.
-
-## Notes
-
-- Keep your Shopify Admin API token secure
-- Configure ALLOWED_ORIGINS in production
-- Monitor rate limiting in high-traffic scenarios
+```
+src/
+├── features/
+│   ├── discounts/
+│   │   ├── discount.controller.ts
+│   │   ├── discount.service.ts
+│   │   └── discount.types.ts
+│   ├── orders/
+│   │   ├── order.controller.ts
+│   │   ├── order.service.ts
+│   │   └── order.types.ts
+│   ├── products/
+│   │   ├── product.controller.ts
+│   │   ├── product.service.ts
+│   │   └── product.types.ts
+│   └── webhooks/
+│       ├── webhook.controller.ts
+│       ├── webhook.service.ts
+│       └── webhook.types.ts
+├── shared/
+│   ├── config/
+│   │   └── swagger.config.ts
+│   ├── middleware/
+│   │   ├── error.middleware.ts
+│   │   └── logger.middleware.ts
+│   ├── services/
+│   │   ├── email.service.ts
+│   │   └── shopify.service.ts
+│   └── types/
+│       └── common.types.ts
+└── index.ts
+```
