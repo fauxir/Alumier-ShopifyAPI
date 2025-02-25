@@ -9,7 +9,7 @@ const options: swaggerJsdoc.Options = {
       description: 'API for Shopify discount management and price monitoring',
       contact: {
         name: 'API Support',
-        url: 'https://alumiermd-discounts.michaeladrian.co.uk'
+        url: 'https://github.com/fauxir/Alumier-ShopifyAPI'
       }
     },
     servers: [
@@ -53,6 +53,31 @@ const options: swaggerJsdoc.Options = {
             fullName: {
               type: 'string',
               example: 'John Doe'
+            }
+          }
+        },
+        DiscountResponse: {
+          type: 'object',
+          properties: {
+            id: {
+              type: 'string',
+              example: '1852230926666'
+            },
+            title: {
+              type: 'string',
+              example: 'Product Title'
+            },
+            price: {
+              type: 'number',
+              example: 29.99
+            },
+            discountedPrice: {
+              type: 'number',
+              example: 24.99
+            },
+            discountPercentage: {
+              type: 'number',
+              example: 20
             }
           }
         },
