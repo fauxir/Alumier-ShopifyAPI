@@ -59,25 +59,29 @@ const options: swaggerJsdoc.Options = {
         DiscountResponse: {
           type: 'object',
           properties: {
-            id: {
+            productId: {
               type: 'string',
               example: '1852230926666'
             },
-            title: {
+            productTitle: {
               type: 'string',
-              example: 'Product Title'
+              example: 'AlumierMD Moisture Matte Sunscreen'
             },
-            price: {
+            productHandle: {
+              type: 'string',
+              example: 'alumiermd-moisture-matte-sunscreen'
+            },
+            originalPrice: {
               type: 'number',
               example: 29.99
             },
             discountedPrice: {
-              type: 'number',
-              example: 24.99
+              type: 'string',
+              example: '24.99'
             },
             discountPercentage: {
-              type: 'number',
-              example: 20
+              type: 'string',
+              example: '20%'
             }
           }
         },
